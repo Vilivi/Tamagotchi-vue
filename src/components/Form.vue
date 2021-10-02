@@ -2,7 +2,7 @@
   <div class="form">
       <label for="tamaName">Rentre le nom de ton Tamagotchi :</label>
       <input type="text" name="tamaName" v-model="tamaName" required>
-      <input type="submit" value="Start">
+      <input type="submit" value="Start" v-on:click="initGame">
   </div>
 </template>
 
@@ -16,6 +16,9 @@ export default {
     }
   },
   methods: {
+    initGame: function () {
+      this.$emit('initGame')
+    }
   },
   updated () {
     this.$store.dispatch(SET_NAME, this.tamaName)
@@ -23,7 +26,7 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Add "scoped" attribute to limit SCSS to this component only -->
 <style scoped lang="scss">
 
 </style>
