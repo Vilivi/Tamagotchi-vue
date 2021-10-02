@@ -1,14 +1,13 @@
 <template>
   <div class="form">
-    <form>
       <label for="tamaName">Rentre le nom de ton Tamagotchi :</label>
       <input type="text" name="tamaName" v-model="tamaName" required>
-      <input type="submit" v-on:click="passName" value="Validate">
-    </form>
+      <input type="submit" value="Start">
   </div>
 </template>
 
 <script>
+import { SET_NAME } from '@/store/mutation-types'
 export default {
   name: 'Form',
   data: function () {
@@ -17,10 +16,9 @@ export default {
     }
   },
   methods: {
-    passName: function () {
-      console.log(this.tamaName)
-      this.$store.commit('setNameFromVueX', this.tamaName)
-    }
+  },
+  updated () {
+    this.$store.dispatch(SET_NAME, this.tamaName)
   }
 }
 </script>

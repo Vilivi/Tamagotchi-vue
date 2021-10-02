@@ -1,8 +1,9 @@
 import { createStore } from 'vuex'
+import { SET_NAME } from './mutation-types'
 
 export default createStore({
   state: {
-    nameFromVueX: 'Default Name'
+    nameFromVueX: ''
   },
   getters: {
     // exemple:
@@ -17,6 +18,11 @@ export default createStore({
     }
   },
   actions: {
+    [SET_NAME] ({ commit, state }, newName) {
+      if (state.nameFromVueX !== newName) {
+        commit('setNameFromVueX', newName)
+      }
+    }
   },
   modules: {
   }

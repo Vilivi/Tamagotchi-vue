@@ -17,10 +17,13 @@ export default {
   },
   computed: {
     tamaName () {
-      return this.$store.state.nameFromVueX
+      return this.strUcFirst(this.$store.state.nameFromVueX)
     }
   },
   methods: {
+    strUcFirst: function (a) {
+      return (a + '').charAt(0).toUpperCase() + a.substr(1)
+    }
   }
 }
 </script>
