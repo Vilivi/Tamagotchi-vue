@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="app">
+    <h1>Bienvenue sur TamaApp!</h1>
     <Form @initGame="startGame" />
-    <h1>{{tamaName}}</h1>
+    <h1>Nom:{{tamaName}}</h1>
     <div v-if="init == true && tamaName">
       <Characteristics />
     </div>
@@ -21,6 +22,7 @@ export default {
   data: function () {
     return {
       init: false
+
     }
   },
   computed: {
@@ -40,5 +42,10 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/_shared.scss';
 
+.app {
+  background: $black;
+  color: $white;
+}
 </style>

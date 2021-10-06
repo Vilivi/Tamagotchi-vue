@@ -1,11 +1,16 @@
 <template>
   <div class="characteristics">
-    <Characteristic />
+    <Characteristic v-for="(data, index) in config" :key="index"
+      :name="data.name"
+      :buttonName="data.buttonName"
+      :value="100"
+    />
   </div>
 </template>
 
 <script>
 import Characteristic from './Characteristic.vue'
+import { config } from '@/config'
 
 export default {
   name: 'Characteristics',
@@ -13,7 +18,9 @@ export default {
     Characteristic
   },
   data: function () {
-    return {}
+    return {
+      config: config
+    }
   },
   methods: {
   }

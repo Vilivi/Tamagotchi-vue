@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { SET_NAME, SET_LIFE, SET_ENERGY, SET_ENTERTAINMENT } from './mutation-types'
+import { characteristics } from './modules/characteristics'
 
 export default createStore({
   state: {
@@ -9,7 +10,7 @@ export default createStore({
     entertainmentFromVueX: 100
   },
   getters: {
-    LifeToPercentage (state) {
+    lifeToPercentage (state) {
       return state.lifeFromVueX + '%'
     },
     energyToPercentage (state) {
@@ -54,5 +55,8 @@ export default createStore({
         commit('setEntertainmentFromVueX', newEntertainment)
       }
     }
+  },
+  modules: {
+    characteristics
   }
 })

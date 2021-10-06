@@ -1,7 +1,7 @@
 <template>
   <div class="characteristic">
       <p>{{name}} : {{value}}</p>
-      <input type="button" value="{{buttonName}}">
+      <button type="submit">{{ buttonName }}</button>
   </div>
 </template>
 
@@ -13,11 +13,11 @@ export default {
       type: String,
       required: true
     },
-    value: {
+    buttonName: {
       type: String,
       required: true
     },
-    buttonName: {
+    value: {
       type: String,
       required: true
     }
