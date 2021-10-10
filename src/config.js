@@ -1,13 +1,13 @@
-const LIFE = 'Life'
-const ENERGY = 'Energy'
-const ENTERTAINMENT = 'Entertainment'
+export const LIFE = 'Life'
+export const ENERGY = 'Energy'
+export const ENTERTAINMENT = 'Entertainment'
 
 const BUTTONLIFE = 'EAT'
 const BUTTONENERGY = 'SLEEP'
 const BUTTONENTERTAINMENT = 'PLAY'
 
 export const config = [
-  { name: LIFE, buttonName: BUTTONLIFE },
-  { name: ENERGY, buttonName: BUTTONENERGY },
-  { name: ENTERTAINMENT, buttonName: BUTTONENTERTAINMENT }
+  { name: LIFE, buttonName: BUTTONLIFE, decreaseValue: 50 },
+  { name: ENERGY, buttonName: BUTTONENERGY, decreaseValue: 50 },
+  { name: ENTERTAINMENT, buttonName: BUTTONENTERTAINMENT, decreaseValue: 50 }
 ]
