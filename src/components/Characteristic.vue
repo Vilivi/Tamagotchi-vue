@@ -1,13 +1,13 @@
 <template>
   <div class="characteristic">
       <p>{{ name }} : {{ value }}</p>
-      <button type="submit">{{ buttonName }}</button>
+      <button type="submit" @click="increase">{{ buttonName }}</button>
   </div>
 </template>
 
 <script>
 import { LIFE, ENERGY, ENTERTAINMENT } from '@/config.js'
-import { SET_LIFE_INTERVAL, SET_ENERGY_INTERVAL, SET_ENTERTAINMENT_INTERVAL } from '@/store/mutation-types'
+import { SET_LIFE_INTERVAL, SET_ENERGY_INTERVAL, SET_ENTERTAINMENT_INTERVAL, INCREASE, SET_GAME } from '@/store/mutation-types'
 
 export default {
   name: 'Characteristic',
@@ -38,6 +38,11 @@ export default {
         break
     }
   },
+  updated () {
+    if (this.$store.state.lifeFromVueX === 0) {
+      this.$store.dispatch(SET_GAME, 2)
+    }
+  },
   computed: {
     value () {
       let value
@@ -56,6 +61,9 @@ export default {
     }
   },
   methods: {
+    increase: function () {
+      this.$store.dispatch(INCREASE, this.name)
+    }
   }
 }
 </script>
