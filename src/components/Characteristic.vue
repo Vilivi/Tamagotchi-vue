@@ -1,13 +1,13 @@
 <template>
   <div class="characteristic">
-      <p>{{name}} : {{ value }}</p>
+      <p>{{ name }} : {{ value }}</p>
       <button type="submit">{{ buttonName }}</button>
   </div>
 </template>
 
 <script>
 import { LIFE, ENERGY, ENTERTAINMENT } from '@/config.js'
-import { DECREASE } from '@/store/mutation-types'
+import { SET_LIFE_INTERVAL, SET_ENERGY_INTERVAL, SET_ENTERTAINMENT_INTERVAL } from '@/store/mutation-types'
 
 export default {
   name: 'Characteristic',
@@ -19,19 +19,24 @@ export default {
     buttonName: {
       type: String,
       required: true
-    },
-    decreaseValue: {
-      type: Number,
-      required: true
     }
   },
   data: function () {
     return {
-      intervalVar: null
     }
   },
   mounted () {
-    this.$store.dispatch(DECREASE, { name: this.name, decreaseValue: this.decreaseValue })
+    switch (this.name) {
+      case LIFE:
+        this.$store.dispatch(SET_LIFE_INTERVAL)
+        break
+      case ENERGY:
+        this.$store.dispatch(SET_ENERGY_INTERVAL)
+        break
+      case ENTERTAINMENT:
+        this.$store.dispatch(SET_ENTERTAINMENT_INTERVAL)
+        break
+    }
   },
   computed: {
     value () {
@@ -51,14 +56,6 @@ export default {
     }
   },
   methods: {
-    manageInterval: function (isActivate) {
-      if (isActivate) {
-        this.interval = setInterval(this.$store.dispatch(DECREASE, { name: this.name, decreaseValue: this.decreaseValue }), 1000)
-        this.setValue()
-      } else {
-        clearInterval(this.interval)
-      }
-    }
   }
 }
 </script>

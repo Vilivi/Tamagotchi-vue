@@ -3,7 +3,6 @@
     <Characteristic v-for="(data, index) in config" :key="index"
       :name="data.name"
       :buttonName="data.buttonName"
-      :decreaseValue="data.decreaseValue"
     />
   </div>
 </template>
@@ -23,8 +22,6 @@ export default {
     }
   },
   methods: {
-  },
-  mounted: function () {
   }
 }
 </script>

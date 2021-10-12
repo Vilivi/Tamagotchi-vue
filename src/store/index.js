@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
-import { SET_GAME, SET_NAME, SET_LIFE, SET_ENERGY, SET_ENTERTAINMENT, DECREASE } from './mutation-types'
-import { LIFE, ENERGY, ENTERTAINMENT } from '@/config.js'
+import { SET_GAME, SET_NAME, SET_LIFE, SET_ENERGY, SET_ENTERTAINMENT, SET_LIFE_INTERVAL, SET_ENERGY_INTERVAL, SET_ENTERTAINMENT_INTERVAL, DECREASE } from './mutation-types'
+import { LIFE, ENERGY, ENTERTAINMENT, DECREASE_LIFE, DECREASE_ENERGY, DECREASE_ENTERTAINMENT } from '@/config.js'
 import { characteristics } from './modules/characteristics'
 
 export default createStore({
@@ -9,7 +9,10 @@ export default createStore({
     nameFromVueX: '',
     lifeFromVueX: 100,
     energyFromVueX: 100,
-    entertainmentFromVueX: 100
+    entertainmentFromVueX: 100,
+    lifeInterval: null,
+    energyInterval: null,
+    entertainmentInterval: null
   },
   getters: {
     lifeToPercentage (state) {
@@ -37,6 +40,15 @@ export default createStore({
     },
     setEntertainmentFromVueX (state, newEntertainment) {
       state.entertainmentFromVueX = newEntertainment
+    },
+    setLifeInterval (state, interval) {
+      state.lifeInterval = interval
+    },
+    setEnergyInterval (state, interval) {
+      state.energyInterval = interval
+    },
+    setEntertainmentInterval (state, interval) {
+      state.entertainmentInterval = interval
     }
   },
   actions: {
@@ -64,6 +76,24 @@ export default createStore({
       if (state.entertainmentFromVueX !== newEntertainment) {
         commit('setEntertainmentFromVueX', newEntertainment)
       }
+    },
+    [SET_LIFE_INTERVAL] ({ commit, dispatch }) {
+      const interval = setInterval(() => {
+        dispatch(DECREASE, { name: LIFE, decreaseValue: DECREASE_LIFE })
+      }, 1000)
+      commit('setLifeInterval', interval)
+    },
+    [SET_ENERGY_INTERVAL] ({ commit, dispatch }) {
+      const interval = setInterval(() => {
+        dispatch(DECREASE, { name: ENERGY, decreaseValue: DECREASE_ENERGY })
+      }, 1000)
+      commit('setEnergyInterval', interval)
+    },
+    [SET_ENTERTAINMENT_INTERVAL] ({ commit, dispatch }) {
+      const interval = setInterval(() => {
+        dispatch(DECREASE, { name: ENTERTAINMENT, decreaseValue: DECREASE_ENTERTAINMENT })
+      }, 1000)
+      commit('setEntertainmentInterval', interval)
     },
     [DECREASE] ({ dispatch, state }, data) {
       let newValue
