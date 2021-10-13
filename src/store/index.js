@@ -1,10 +1,11 @@
 import { createStore } from 'vuex'
-import { SET_GAME, SET_NAME, SET_LIFE, SET_ENERGY, SET_ENTERTAINMENT, SET_LIFE_INTERVAL, SET_ENERGY_INTERVAL, SET_ENTERTAINMENT_INTERVAL, DECREASE, INCREASE, CLEAR_ALL, CLEAR_INTERVAL } from './mutation-types'
+import { SET_GAME, SET_NAME, SET_LIFE, SET_ENERGY, SET_ENTERTAINMENT, SET_LIFE_INTERVAL, SET_ENERGY_INTERVAL, SET_ENTERTAINMENT_INTERVAL, DECREASE, INCREASE, CLEAR_ALL, CLEAR_INTERVAL, GET_METEO } from './mutation-types'
 import { LIFE, ENERGY, ENTERTAINMENT, DECREASE_LIFE, DECREASE_ENERGY, DECREASE_ENTERTAINMENT, INCREASE_LIFE, INCREASE_ENERGY, INCREASE_ENTERTAINMENT } from '@/config.js'
 
 export default createStore({
   state: {
     gameFromVueX: 0,
+    meteoFromVueX: null,
     nameFromVueX: '',
     lifeFromVueX: 100,
     energyFromVueX: 100,
@@ -27,6 +28,9 @@ export default createStore({
   mutations: {
     setGameFromVueX (state, game) {
       state.gameFromVueX = game
+    },
+    setMeteoFromVueX (state, meteo) {
+      state.meteoFromVueX = meteo
     },
     setNameFromVueX (state, newName) {
       state.nameFromVueX = newName
@@ -148,6 +152,11 @@ export default createStore({
           commit('setEntertainmentInterval', INTERVAL)
           break
       }
+    },
+    async [GET_METEO] ({ commit }) {
+      const json = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Montpellier&appid=bf0d4e6ba9c689f916de7677ceae8026')
+      const meteo = await json.json()
+      commit('setMeteoFromVueX', meteo.main)
     }
   }
 })

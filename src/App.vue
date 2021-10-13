@@ -9,13 +9,14 @@
     <div v-if="game == 2 && tamaName">
       <h2>Game Over</h2>
     </div>
+    <p>Meteo: {{ feelsLike }}</p>
   </div>
 </template>
 
 <script>
 import Form from './components/Form.vue'
 import Characteristics from './components/Characteristics.vue'
-import { SET_GAME } from '@/store/mutation-types'
+import { SET_GAME, GET_METEO } from '@/store/mutation-types'
 
 export default {
   name: 'App',
@@ -27,12 +28,23 @@ export default {
     return {
     }
   },
+  beforeMount () {
+    this.$store.dispatch(GET_METEO)
+  },
   computed: {
     tamaName () {
       return this.strUcFirst(this.$store.state.nameFromVueX)
     },
     game () {
       return this.$store.state.gameFromVueX
+    },
+    feelsLike () {
+      if (this.$store.state.meteoFromVueX) {
+        const meteo = this.$store.state.meteoFromVueX
+        return this.convertKelvinToCelsius(meteo.feels_like)
+      } else {
+        return 'Loading'
+      }
     }
   },
   methods: {
@@ -41,6 +53,9 @@ export default {
     },
     startGame: function () {
       this.$store.dispatch(SET_GAME, 1)
+    },
+    convertKelvinToCelsius: function (kelvin) {
+      return Math.round(kelvin - 273.15) + '°'
     }
   }
 }
