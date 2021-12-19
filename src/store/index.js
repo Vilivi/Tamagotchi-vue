@@ -154,7 +154,7 @@ export default createStore({
       }
     },
     async [GET_METEO] ({ commit }) {
-      const json = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Montpellier&appid=bf0d4e6ba9c689f916de7677ceae8026')
+      const json = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Montpellier&appid=${process.env.VUE_APP_API_KEY}`)
       const meteo = await json.json()
       commit('setMeteoFromVueX', meteo.main)
     }
